@@ -5,6 +5,7 @@
   var RUSH_FEE = 10;
   var DEFAULT_SERVICES = [
     "Pants & Jeans",
+    "Suits & Pants",
     "Shirts & Blouses",
     "Dresses & Skirts",
     "Bridal & Formal Wear",

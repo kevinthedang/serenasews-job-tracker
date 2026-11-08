@@ -19,6 +19,8 @@ python3 -m http.server 8000
 
 Then visit <http://localhost:8000>.
 
+For Raspberry Pi or home-network hosting, see [deployment.md](deployment.md).
+
 ## What it tracks
 
 | Field | Notes | Spreadsheet column |
