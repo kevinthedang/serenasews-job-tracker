@@ -28,7 +28,7 @@
       </button>
     </div>
   </header>
-
+  
   <main class="page">
     <section class="stats-toolbar" aria-label="Statistics period">
       <p class="stats-caption" id="statsCaption">This month at a glance</p>
@@ -37,7 +37,7 @@
         <select id="statsPeriod"></select>
       </label>
     </section>
-
+  
     <section class="stats-grid" aria-label="Business overview">
       <article class="stat stat-hero">
         <p class="stat-label">Revenue</p>
@@ -60,13 +60,13 @@
         <p class="stat-hint">bridal jobs</p>
       </article>
     </section>
-
+  
     <section class="card insights" aria-labelledby="insightsTitle">
       <div class="card-head insights-head">
         <h2 id="insightsTitle">Business insights</h2>
         <p class="card-subtitle" id="insightsPeriod">This month</p>
       </div>
-
+  
       <div class="insights-grid">
         <div class="insight">
           <p class="insight-label">Average ticket</p>
@@ -93,7 +93,7 @@
           <p class="insight-value" id="insightRepeat">—</p>
           <p class="insight-sub" id="insightRepeatSub">No clients yet</p>
         </div>
-
+  
         <div class="insight insight-trend">
           <div class="trend-head">
             <p class="insight-label">6-month revenue</p>
@@ -102,7 +102,7 @@
           <div class="trend-bars" id="insightTrendBars"></div>
         </div>
       </div>
-
+  
       <div class="insights-services">
         <p class="insight-label">Top services</p>
         <div class="service-chips" id="serviceChips">
@@ -110,14 +110,14 @@
         </div>
       </div>
     </section>
-
+  
     <div class="layout">
       <section class="card form-card" aria-labelledby="formTitle">
         <div class="card-head">
           <h2 id="formTitle">Log a job</h2>
           <p class="card-subtitle" id="formHint">Fill in the details and the total is calculated for you.</p>
         </div>
-
+  
         <form id="jobForm" novalidate>
           <div class="field-row">
             <div class="field">
@@ -129,18 +129,18 @@
               <input type="number" id="garments" name="garments" min="1" step="1" value="1" required />
             </div>
           </div>
-
+  
           <div class="field">
             <label for="client">Client name</label>
             <input type="text" id="client" name="client" placeholder="e.g. Maya Chen" autocomplete="off" required />
           </div>
-
+  
           <div class="field">
             <label for="service">Service category <span class="optional">optional</span></label>
             <input type="text" id="service" name="service" list="serviceOptions" placeholder="e.g. Hemming or bridal alterations" autocomplete="off" />
             <datalist id="serviceOptions"></datalist>
           </div>
-
+  
           <div class="field-row">
             <div class="field">
               <label for="jobPrice">Job price</label>
@@ -157,7 +157,7 @@
               </div>
             </div>
           </div>
-
+  
           <div class="toggles">
             <label class="toggle">
               <input type="checkbox" id="rush" name="rush" />
@@ -175,7 +175,7 @@
               </span>
             </label>
           </div>
-
+  
           <div class="total-preview" aria-live="polite">
             <div class="total-line">
               <span>Job price</span>
@@ -194,12 +194,12 @@
               <span id="previewTotal">$0.00</span>
             </div>
           </div>
-
+  
           <button type="submit" class="btn btn-primary btn-block" id="submitBtn">Save job</button>
           <button type="button" class="btn btn-link hidden" id="cancelEdit">Cancel edit</button>
         </form>
       </section>
-
+  
       <section class="card jobs-card" aria-labelledby="historyTitle">
         <div class="card-head jobs-head">
           <div>
@@ -220,7 +220,7 @@
             </label>
           </div>
         </div>
-
+  
         <div class="table-wrap" id="tableWrap">
           <table id="jobsTable">
             <thead>
@@ -239,25 +239,25 @@
             <tbody id="jobsBody"></tbody>
             <tfoot id="jobsFoot"></tfoot>
           </table>
-
-          <div class="empty-state" id="emptyState" hidden>
-            <div class="empty-icon" aria-hidden="true">
-              <svg viewBox="0 0 64 64"><path d="M32 18a4 4 0 1 1 4-4"/><path d="M36 14 12 34c-2 1.7-.8 5 1.7 5h36.6c2.5 0 3.7-3.3 1.7-5L36 14"/><path d="M18 50h28"/></svg>
-            </div>
-            <p class="empty-title" id="emptyTitle">No jobs yet</p>
-            <p class="empty-sub" id="emptySub">Log your first job with the form.</p>
+  
+        <div class="empty-state" id="emptyState" hidden>
+          <div class="empty-icon" aria-hidden="true">
+            <svg viewBox="0 0 64 64"><path d="M32 18a4 4 0 1 1 4-4"/><path d="M36 14 12 34c-2 1.7-.8 5 1.7 5h36.6c2.5 0 3.7-3.3 1.7-5L36 14"/><path d="M18 50h28"/></svg>
           </div>
+          <p class="empty-title" id="emptyTitle">No jobs yet</p>
+          <p class="empty-sub" id="emptySub">Log your first job with the form.</p>
         </div>
       </section>
     </div>
-
+  
     <p class="storage-note">
       Your entries are saved in this browser only. Export a spreadsheet regularly to keep a backup.
     </p>
   </main>
-
+  
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-
+  
+  <script src="utils.js"></script>
   <script src="xlsx.js"></script>
   <script src="app.js"></script>
 </body>

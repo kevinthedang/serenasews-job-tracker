@@ -2,43 +2,6 @@
   "use strict";
 
   var STORAGE_KEY = "serena-dang-jobs-v1";
-  var RUSH_FEE = 10;
-  var DEFAULT_SERVICES = [
-    "Pants & Jeans",
-    "Suits & Pants",
-    "Shirts & Blouses",
-    "Dresses & Skirts",
-    "Bridal & Formal Wear",
-    "Home Textiles",
-    "Repairs",
-    "Other",
-  ];
-
-  var EDIT_ICON =
-    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>';
-  var DELETE_ICON =
-    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v5M14 11v5"/></svg>';
-
-  var usd = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-  });
-  var dateFmt = new Intl.DateTimeFormat("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  });
-  var monthFmt = new Intl.DateTimeFormat("en-US", {
-    month: "long",
-    year: "numeric",
-  });
-  var monthShortFmt = new Intl.DateTimeFormat("en-US", {
-    month: "short",
-  });
-  var percentFmt = new Intl.NumberFormat("en-US", {
-    style: "percent",
-    maximumFractionDigits: 1,
-  });
 
   var els = {
     form: document.getElementById("jobForm"),
@@ -984,11 +947,6 @@
     });
   }
 
-  function csvCell(value) {
-    var text = String(value == null ? "" : value);
-    return /[",\r\n]/.test(text) ? '"' + text.replace(/"/g, '""') + '"' : text;
-  }
-
   function download(blob, filename) {
     var url = URL.createObjectURL(blob);
     var link = document.createElement("a");
@@ -1003,70 +961,6 @@
     }, 2000);
   }
 
-  /* ---------- Helpers ---------- */
-
-  function jobTotal(job) {
-    return money(
-      money(job.jobPrice) + (job.rush ? RUSH_FEE : 0) + money(job.tips)
-    );
-  }
-
-  function money(value) {
-    return Math.round((Number(value) || 0) * 100) / 100;
-  }
-
-  function formatMoney(value) {
-    return usd.format(money(value));
-  }
-
-  function formatPercent(ratio) {
-    return percentFmt.format(Number(ratio) || 0);
-  }
-
-  function formatDate(iso) {
-    var parts = String(iso).split("-").map(Number);
-    if (parts.length !== 3 || parts.some(isNaN)) return iso;
-    var date = new Date(parts[0], parts[1] - 1, parts[2]);
-    return isNaN(date.getTime()) ? iso : dateFmt.format(date);
-  }
-
-  function formatMonth(month) {
-    var parts = String(month).split("-").map(Number);
-    if (parts.length !== 2 || parts.some(isNaN)) return month;
-    return monthFmt.format(new Date(parts[0], parts[1] - 1, 1));
-  }
-
-  function addMonths(month, delta) {
-    var parts = String(month).split("-").map(Number);
-    if (parts.length !== 2 || parts.some(isNaN)) return month;
-    var date = new Date(parts[0], parts[1] - 1 + delta, 1);
-    return (
-      date.getFullYear() +
-      "-" +
-      String(date.getMonth() + 1).padStart(2, "0")
-    );
-  }
-
-  function todayISO() {
-    var now = new Date();
-    var year = now.getFullYear();
-    var month = String(now.getMonth() + 1).padStart(2, "0");
-    var day = String(now.getDate()).padStart(2, "0");
-    return year + "-" + month + "-" + day;
-  }
-
-  function makeId() {
-    if (
-      typeof crypto !== "undefined" &&
-      typeof crypto.randomUUID === "function"
-    ) {
-      return crypto.randomUUID();
-    }
-    return (
-      "job-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 9)
-    );
-  }
-
   function showToast(message) {
     els.toast.textContent = message;
     els.toast.classList.add("show");
@@ -1075,4 +969,9 @@
       els.toast.classList.remove("show");
     }, 2800);
   }
+
+  var EDIT_ICON =
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>';
+  var DELETE_ICON =
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v5M14 11v5"/></svg>';
 })();

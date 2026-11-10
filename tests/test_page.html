@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Unit Test Runner</title>
+  <style>
+    body { font-family: sans-serif; padding: 2rem; background: #f4f4f9; }
+    .test-case { background: white; padding: 1rem; margin: 0.5rem 0; border-radius: 8px; border-left: 4px solid #ccc; }
+    .pass { border-left-color: #4caf50; }
+    .fail { border-left-color: #f44336; }
+    h1 { color: #333; }
+  </style>
+</head>
+<body>
+  <h1>Unit Test Runner</h1>
+  <div id="results"></div>
+
+  <script src="utils.js"></script>
+  <script>
+    const resultsContainer = document.getElementById('results');
+
+    function assert(condition, message) {
+      const div = document.createElement('div');
+      div.className = 'test-case ' + (condition ? 'pass' : 'fail');
+      div.innerHTML = `<strong>${condition ? '✅ PASS' : '❌ FAIL'}:</strong> ${message}`;
+      resultsContainer.appendChild(div);
+      if (!condition) throw new Error(message);
+    }
+
+    try {
+      console.log("Starting tests...");
+      
+      // Test: money()
+      assert(window.money(10.555) === 10.56, "money(10.555) should be 10.56");
+      assert(window.money(10.554) === 10.55, "money(10.554) should be 10.55");
+      assert(window.money("100") === 100, "money('100') should be 100");
+
+      // Test: formatMoney()
+      assert(window.formatMoney(10) === "$10.00", "formatMoney(10) should be $10.00");
+      assert(window.formatMoney(10.5) === "$10.50", "formatMoney(10.5) should be $10.50");
+
+      // Test: jobTotal()
+      const testJob = { jobPrice: 100, rush: true, tips: 5 };
+      assert(window.jobTotal(testJob) === 115, "jobTotal for a rush job with tips should be 115");
+
+      const testJob2 = { jobPrice: 100, rush: false, tips: 5 };
+      assert(window.jobTotal(testJob2) === 105, "jobTotal for a non-rush job with tips should be 105");
+
+      // Test: addMonths()
+      assert(window.addMonths("2023-01", 1) === "2023-02", "addMonths(2023-01, 1) should be 2023-02");
+      assert(window.addMonths("2023-12", 1) === "2024-01", "addMonths(2023-12, 1) should be 2024-01");
+
+      // Test: csvCell()
+      assert(window.csvCell("Normal") === "Normal", "csvCell('Normal') should be Normal");
+      assert(window.csvCell('Comma,') === '"Comma,"', "csvCell('Comma,') should be escaped");
+      assert(window.csvCell('"Quote"') === '"\"Quote\""', "csvCell('\"Quote\"') should be escaped");
+
+      console.log("All tests passed!");
+    } catch (error) {
+      console.error(error);
+    }
+  </script>
+</body>
+</html>
